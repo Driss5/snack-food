@@ -34,6 +34,24 @@
     border-radius: 12px;
     display: block;
 }
+
+/* .detaille-food-image {
+    display: flex;
+    justify-content: center; 
+    align-items: center;       
+    border-radius: 12px;
+    overflow: hidden;
+    height: 299px;          
+    width: fit-content;
+    margin-left: 50px;  
+}
+.detaille-food-image img {
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 12px;
+    display: block;
+} */
 .detaille-header-p {
     color: white;
 }

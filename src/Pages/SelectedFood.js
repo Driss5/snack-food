@@ -2,8 +2,14 @@ import { useLocation } from "react-router-dom";
 import '../css/selected-food.css';
 import { useNavigate } from "react-router-dom";
 import DownLinks from "../Components/DownLinks";
+import { useEffect } from "react";
 
 function SelectedFood() {
+
+      useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+    
   const location = useLocation();
   const { food } = location.state || {};
 

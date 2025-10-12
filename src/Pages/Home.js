@@ -33,8 +33,8 @@ function Home() {
                 let favorites = JSON.parse(localStorage.getItem('foodFavorite')) || [];
 
                 const newItem = {
-                foodIndex: foodIndex + 1,
-                liked: foods[foodIndex].liked
+                    foodIndex: foodIndex + 1,
+                    liked: foods[foodIndex].liked
                 };
 
                 const existingIndex = favorites.findIndex(f => f.foodIndex === foodIndex + 1);

@@ -4,13 +4,13 @@
 }
 .nav-container {
     width: 100%;
-    height: 100px;
+    height: 75px;
     background-color: #F66141;
 }
 .left-icone {
     display: flex;
     align-items: center;
-    height: 95px;
+    height: 75px;
     margin-left: 38px;
 }
 .left-nav-container {
@@ -18,7 +18,6 @@
     height: calc(100vh - 130px);
     float: left;
     background-color: rosybrown;
-    margin-top: 5px;
     padding: 15px 15px;
     z-index: 1;
     position: relative;
