@@ -90,8 +90,9 @@ function Home() {
                 </div>
                 <div className='categories-container'>
                     {categories.map((category) => (
-                        <div className='categorie-card' key={category.id} onClick={() => {handleChangeCategorie(category.name)}}>
-                            <img src={category.active ? category.iconActive : category.iconNormal } alt={category.alt} style={category.active ? {backgroundColor : '#F66141'} : {} } />
+                        <div className='categorie-card' key={category.id} onClick={() => {handleChangeCategorie(category.name)}} style={category.active ? {backgroundColor : '#F66141'} : {} }>
+                            <img src={category.active ? category.iconActive : category.iconNormal } alt={category.alt} />
+                            <p style={category.active ? {color : 'white'} : {} }>{category.name}</p>
                         </div>
                     ))}
                 </div> 
