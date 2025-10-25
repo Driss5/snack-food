@@ -15,6 +15,6 @@
 }
 .favorite-container {
     padding-bottom: 100px;
-    height: 100vh;
+    min-height: 100vh;
     background-color: #F81115;
 }
