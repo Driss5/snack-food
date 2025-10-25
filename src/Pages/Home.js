@@ -34,6 +34,10 @@ function Home() {
 
                 const newItem = {
                     foodIndex: foodIndex + 1,
+                    name: foods[foodIndex].name,
+                    price: foods[foodIndex].price,
+                    image: foods[foodIndex].image,
+                    categrie: foods[foodIndex].categorie,
                     liked: foods[foodIndex].liked
                 };
 
