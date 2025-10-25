@@ -6,7 +6,7 @@ import { useEffect } from "react";
 
 function SelectedFood() {
 
-      useEffect(() => {
+    useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
     
