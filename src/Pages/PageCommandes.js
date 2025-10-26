@@ -8,6 +8,21 @@ function PageCommandes() {
         window.scrollTo(0, 0);
     }, []);
 
+    let Commandes = JSON.parse(localStorage.getItem('foodFavorite')) || [];
+    const orderedFoods = Commandes.filter(food => food.cartStatut);
+
+    function handleChangeCartStatu(foodIndex) {
+        let updatedCommandes = Commandes.map(food => {
+            if (food.foodIndex === foodIndex) {
+                return { ...food, cartStatut: false };
+            }
+            return food;
+        });
+        Commandes = updatedCommandes;
+        localStorage.setItem('foodFavorite', JSON.stringify(updatedCommandes));
+        window.location.reload();
+    }
+
   return (
     <div className='containerr'>
         <div className='cart-container'>
@@ -21,28 +36,32 @@ function PageCommandes() {
                 </div>
                 <div className='cart-body'>
                     <div className='cart-items'>
-                        <div className='cart-item'>
-                            <div className='cart-image'>
-                                <img src='/Images/food/2.png' alt='product' />
-                            </div>
-                            <div className='cart-text'>
-                                <p>Product Name</p>
-                                <div className='cart-text-two'>
-                                    <p>Size : XL</p>
-                                    <p>Qty : 2</p>
+                        {
+                            orderedFoods.map((food) => (
+                                <div className='cart-item' key={food.foodIndex}>
+                                    <div className='cart-image'>
+                                        <img src={food.image} alt={food.name} />
+                                    </div>
+                                    <div className='cart-text'>
+                                        <p>{food.name}</p>
+                                        <div className='cart-text-two'>
+                                            <p>Size : XL</p>
+                                            <p>Qty : 1</p>
+                                        </div>
+                                        <p>{food.price}DH</p>
+                                    </div>
+                                    <div className='cart-icones'>
+                                        <div className='cart-icone-close'>
+                                            <img src='/Images/Icones/close.svg' alt='close' onClick={() => {handleChangeCartStatu(food.foodIndex)}} />
+                                        </div>
+                                        <div className='cart-icone-qty'>
+                                            <img src='/Images/Icones/rectangle top.svg' alt='close' />
+                                            <img src='/Images/Icones/rectangle bottom.svg' alt='close' />
+                                        </div>
+                                    </div>
                                 </div>
-                                <p>150DH</p>
-                            </div>
-                            <div className='cart-icones'>
-                                <div className='cart-icone-close'>
-                                    <img src='/Images/Icones/close.svg' alt='close' />
-                                </div>
-                                <div className='cart-icone-qty'>
-                                    <img src='/Images/Icones/rectangle top.svg' alt='close' />
-                                    <img src='/Images/Icones/rectangle bottom.svg' alt='close' />
-                                </div>
-                            </div>
-                        </div>
+                            ))
+                        }
                     </div>
 
                 </div>

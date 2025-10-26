@@ -52,7 +52,6 @@ function SelectedFood() {
         setFavoritesH(favorites);
         localStorage.setItem('foodFavorite', JSON.stringify(favorites));
     }
-
   }
 
   return (
@@ -86,7 +85,7 @@ function SelectedFood() {
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tristique hendrerit aliquam ullamcorper laoreet gravida suspendisse libero turpis consectetur. Amet mi, neque elit</p>
             </div>
             <div className="detaolle-food-btn">
-                <button onClick={() => {handleAddToCart(food.id)}}>Add to cart - { food.price } DH</button>
+                <button onClick={() => {handleAddToCart(food.id)}}>Add To Cart - { food.price } DH</button>
             </div>
         </div>
         <div className="bg-2"></div>
