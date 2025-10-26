@@ -55,7 +55,7 @@ function Home() {
     useEffect(() => {
         const saved = JSON.parse(localStorage.getItem("foodFavorite")) || [];
         setFavoritesH(saved);
-    }, []);
+    }, [setFavoritesH]);
 
     const navigate = useNavigate();
 
