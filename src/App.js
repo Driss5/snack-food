@@ -6,7 +6,7 @@ import PageCommandes from './Pages/PageCommandes';
 import { useState } from 'react';
 import { FavoriteContexte } from './Contexte/favoriteContexte';
 import { FoodContexte } from './Contexte/foodsContexte';
-
+// 
 function App() {
 
   const [favoritesH, setFavoritesH] = useState([]);
