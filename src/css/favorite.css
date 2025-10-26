@@ -66,6 +66,8 @@
     background-color: #FECECF;
     border-radius: 8px;
     margin-bottom: 10px;
+    display: flex;
+    align-items: center;
 }
 .price-detaills {
     display: flex;
@@ -105,6 +107,43 @@
 .cart-footer-btn {
     text-align: center;
     padding-top: 25px;
+}
+.cart-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    object-fit: cover;
+    background-color: white;
+    margin: 20px 15px;
+}
+.cart-image img {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    object-fit: cover;
+}
+.cart-text-two {
+    color: gray !important;
+    line-height: 16px !important;
+    font-weight: 400 !important;
+}
+.cart-text {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 32px;
+}
+.cart-icone-qty {
+    display: flex;
+    flex-flow: column;
+    gap: 5px;
+}
+.cart-icones {
+    display: flex;
+    flex-flow: column;
+    gap: 36px;
+    align-items: center;
+    margin-left: auto;
+    padding: 0 17px;
 }
 
 @media (max-width: 380px) {

@@ -8,7 +8,9 @@ function DownLinks() {
                 <Link to="/">
                     <img src='/Images/Icones/market.svg' alt='Home' />
                 </Link>
-                <img src='/Images/Icones/location.svg' alt='Home' />
+                <Link to="/pageCommandes">
+                    <img src='/Images/Icones/location.svg' alt='Home' />
+                </Link>
                 <Link to="/pageLikes">
                     <img src='/Images/Icones/market.svg' alt='Home' />
                 </Link>
