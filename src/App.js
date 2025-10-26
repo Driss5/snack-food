@@ -3,18 +3,36 @@ import SelectedFood from './Pages/SelectedFood';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import PageLikes from './Pages/PageLikes';
 import PageCommandes from './Pages/PageCommandes';
+import { useState } from 'react';
+import { FavoriteContexte } from './Contexte/favoriteContexte';
+import { FoodContexte } from './Contexte/foodsContexte';
 
 function App() {
+
+  const [favoritesH, setFavoritesH] = useState([]);
+
+  const foods = [
+      { id: 1, name: 'Pizza Talienne', price: 80, image: '/Images/food/7.png', liked : false, categorie : 'pizza', cartStatut : false },
+      { id: 2, name: 'Cheese Burger', price: 50, image: '/Images/food/13.png', liked : false, categorie : 'burger', cartStatut : false },
+      { id: 3, name: 'Veggie Salad', price: 40, image: '/Images/food/2.png', liked : false, categorie : 'salad', cartStatut : false },
+      { id: 4, name: 'French Fries', price: 30, image: '/Images/food/5.png', liked : false, categorie : 'pizza', cartStatut : false },
+      { id: 5, name: 'Soft Drink', price: 20, image: '/Images/food/6.png', liked : false, categorie : 'drink', cartStatut : false },
+      { id: 6, name: 'Tacoos', price: 20, image: '/Images/food/6.png', liked : false, categorie : 'tacoos', cartStatut : false },
+  ]
+
   return (
     <div className="App">
-        {/* <Home /> */}
             <Router>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/pageSelectedFood" element={<SelectedFood />} />
-                <Route path="/pageLikes" element={<PageLikes />} />
-                <Route path="/pageCommandes" element={<PageCommandes />} />
-              </Routes>
+              <FoodContexte.Provider value={{foods}}>
+              <FavoriteContexte.Provider value={{favoritesH, setFavoritesH}}>
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/pageSelectedFood" element={<SelectedFood />} />
+                    <Route path="/pageLikes" element={<PageLikes />} />
+                    <Route path="/pageCommandes" element={<PageCommandes />} />
+                </Routes>
+              </FavoriteContexte.Provider>
+              </FoodContexte.Provider>
             </Router>
     </div>
   );

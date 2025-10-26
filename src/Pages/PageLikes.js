@@ -3,6 +3,8 @@ import DownLinks from "../Components/DownLinks";
 import '../css/favorite.css';
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useContext } from 'react';
+import { FoodContexte } from '../Contexte/foodsContexte';
 
 function PageLikes() {
 
@@ -25,10 +27,11 @@ function PageLikes() {
         window.location.reload();
     }
 
+    const { foods } = useContext(FoodContexte);
+
     const navigate = useNavigate();
     function handleSelectedFood(id) {
-        const food = favorites.find((f) => {return f.foodIndex === id})
-        console.log(food);
+        const food = foods.find((f) => {return f.id === id})
         navigate("/pageSelectedFood", { state: { food: food } });
     }
 

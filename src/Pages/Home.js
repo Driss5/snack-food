@@ -3,7 +3,9 @@ import '../css/home.css';
 import { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import DownLinks from '../Components/DownLinks';
-
+import { useContext } from 'react';
+import { FavoriteContexte } from '../Contexte/favoriteContexte';
+import { FoodContexte } from '../Contexte/foodsContexte';
 
 function Home() {
 
@@ -15,14 +17,9 @@ function Home() {
         { id: 5, name: 'drink', iconNormal: '/Images/Icones-Food/drink.png', iconActive: '/Images/Icones-Food/drink-w.png', alt: 'Drinks', active: false },
     ]);
 
-    const foods = [
-        { id: 1, name: 'Pizza Talienne', price: 80, image: '/Images/food/7.png', liked : false, categorie : 'pizza' },
-        { id: 2, name: 'Cheese Burger', price: 50, image: '/Images/food/13.png', liked : false, categorie : 'burger' },
-        { id: 3, name: 'Veggie Salad', price: 40, image: '/Images/food/2.png', liked : false, categorie : 'salad' },
-        { id: 4, name: 'French Fries', price: 30, image: '/Images/food/5.png', liked : false, categorie : 'pizza' },
-        { id: 5, name: 'Soft Drink', price: 20, image: '/Images/food/6.png', liked : false, categorie : 'drink' },
-        { id: 6, name: 'Tacoos', price: 20, image: '/Images/food/6.png', liked : false, categorie : 'tacoos' },
-    ]
+    const { foods } = useContext(FoodContexte);
+
+    const { favoritesH, setFavoritesH } = useContext(FavoriteContexte);
 
     function handleAddFavorite(foodId) {
         return function() {
@@ -38,23 +35,22 @@ function Home() {
                     price: foods[foodIndex].price,
                     image: foods[foodIndex].image,
                     categrie: foods[foodIndex].categorie,
-                    liked: foods[foodIndex].liked
+                    liked: foods[foodIndex].liked,
+                    cartStatut: foods[foodIndex].cartStatut
                 };
 
                 const existingIndex = favorites.findIndex(f => f.foodIndex === foodIndex + 1);
 
                 if (existingIndex !== -1) {
-                favorites[existingIndex].liked = !favorites[existingIndex].liked;
+                    favorites[existingIndex].liked = !favorites[existingIndex].liked;
                 } else {
-                favorites.push(newItem);
+                    favorites.push(newItem);
                 }
                 setFavoritesH(favorites);
                 localStorage.setItem('foodFavorite', JSON.stringify(favorites));
             }  
         }
     }
-
-    const [favoritesH, setFavoritesH] = useState([]);
 
     useEffect(() => {
         const saved = JSON.parse(localStorage.getItem("foodFavorite")) || [];

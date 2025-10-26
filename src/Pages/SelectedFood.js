@@ -3,12 +3,18 @@ import '../css/selected-food.css';
 import { useNavigate } from "react-router-dom";
 import DownLinks from "../Components/DownLinks";
 import { useEffect } from "react";
+import { useContext } from 'react';
+import { FavoriteContexte } from '../Contexte/favoriteContexte';
+import { FoodContexte } from '../Contexte/foodsContexte';
 
 function SelectedFood() {
 
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
+
+    const { setFavoritesH } = useContext(FavoriteContexte);
+    const { foods } = useContext(FoodContexte);
     
   const location = useLocation();
   const { food } = location.state || {};
@@ -19,6 +25,36 @@ function SelectedFood() {
         navigate(-1);
     }
   }
+
+  function handleAddToCart(foodId) {
+    let favorites = JSON.parse(localStorage.getItem('foodFavorite')) || [];
+    let foodIndex = favorites.findIndex(foo => foo.foodIndex === foodId);
+
+    if (!favorites[foodIndex]) {
+        const food = foods.find(f => f.id === foodId);
+        if (!food) return console.log('Food not found!');
+
+        const newItem = {
+            foodIndex: food.id,
+            name: food.name,
+            price: food.price,
+            image: food.image,
+            categorie: food.categorie,
+            liked: food.liked || false,
+            cartStatut: true
+        };
+
+        favorites.push(newItem);
+        setFavoritesH(favorites);
+        localStorage.setItem('foodFavorite', JSON.stringify(favorites));
+    } else {
+        favorites[foodIndex].cartStatut = true;
+        setFavoritesH(favorites);
+        localStorage.setItem('foodFavorite', JSON.stringify(favorites));
+    }
+
+  }
+
   return (
     <div className="bg-0">
         <div className="bg-1">
@@ -50,7 +86,7 @@ function SelectedFood() {
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tristique hendrerit aliquam ullamcorper laoreet gravida suspendisse libero turpis consectetur. Amet mi, neque elit</p>
             </div>
             <div className="detaolle-food-btn">
-                <button>Add to cart - { food.price } DH</button>
+                <button onClick={() => {handleAddToCart(food.id)}}>Add to cart - { food.price } DH</button>
             </div>
         </div>
         <div className="bg-2"></div>
