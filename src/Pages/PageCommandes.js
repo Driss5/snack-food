@@ -1,6 +1,12 @@
 import '../css/favorite.css';
+import { useEffect } from "react";
 
 function PageCommandes() {
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
   return (
     <div className='containerr'>
         <div className='cart-container'>

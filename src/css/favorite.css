@@ -82,6 +82,13 @@
 }
 .cart-footer {
     padding: 8px 22px;
+
+    /* bach tji lta7t */
+    /* position: fixed;
+    bottom: 150px;
+    left: 12px;
+    width: 84%;
+    height: 90px; */
 }
 .cart-footer > p:first-child {
     font-weight: bold;
