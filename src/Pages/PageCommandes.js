@@ -1,5 +1,5 @@
 import '../css/favorite.css';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 
 function PageCommandes() {
@@ -21,6 +21,44 @@ function PageCommandes() {
         Commandes = updatedCommandes;
         localStorage.setItem('foodFavorite', JSON.stringify(updatedCommandes));
         window.location.reload();
+    }
+
+    let [quantite, setQuantite] = useState({});
+    let [totalProduit, setTotalProduit] = useState({});
+
+    function handleIncrement(foodIndex) {
+        const foodToUpdate = Commandes.find(food => food.foodIndex === foodIndex);
+        if (foodToUpdate) {
+
+            setQuantite(prev => {
+                const newQty = (prev[foodIndex] || 1) + 1;
+                setTotalProduit(totalPrev => ({
+                    ...totalPrev,
+                    [foodIndex]: foodToUpdate.price * newQty
+                }));
+                return {
+                    ...prev,
+                    [foodIndex]: newQty
+                };
+            });
+        }
+    }
+
+    function handleDecrement(foodIndex) {
+        const foodToUpdate = Commandes.find(food => food.foodIndex === foodIndex);
+        if (foodToUpdate) {
+            setQuantite(prev => {
+                const newQty = (prev[foodIndex] || 1) - 1;
+                setTotalProduit(totalPrev => ({
+                    ...totalPrev,
+                    [foodIndex]: foodToUpdate.price * newQty
+                }));
+                return {
+                    ...prev,
+                    [foodIndex]: newQty
+                };
+            });
+        }
     }
 
   return (
@@ -46,17 +84,17 @@ function PageCommandes() {
                                         <p>{food.name}</p>
                                         <div className='cart-text-two'>
                                             <p>Size : XL</p>
-                                            <p>Qty : 1</p>
+                                            <p>Qty : {quantite[food.foodIndex] || 1}</p>
                                         </div>
-                                        <p>{food.price}DH</p>
+                                        <p>{totalProduit[food.foodIndex] || food.price}DH</p>
                                     </div>
                                     <div className='cart-icones'>
                                         <div className='cart-icone-close'>
                                             <img src='/Images/Icones/close.svg' alt='close' onClick={() => {handleChangeCartStatu(food.foodIndex)}} />
                                         </div>
                                         <div className='cart-icone-qty'>
-                                            <img src='/Images/Icones/rectangle top.svg' alt='close' />
-                                            <img src='/Images/Icones/rectangle bottom.svg' alt='close' />
+                                            <img src='/Images/Icones/rectangle top.svg' alt='INCREMENT' onClick={() => handleIncrement(food.foodIndex)} />
+                                            <img src='/Images/Icones/rectangle bottom.svg' alt='DECREMENT' onClick={() => handleDecrement(food.foodIndex)} />
                                         </div>
                                     </div>
                                 </div>

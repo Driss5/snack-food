@@ -34,6 +34,9 @@ function Home() {
                     name: foods[foodIndex].name,
                     price: foods[foodIndex].price,
                     image: foods[foodIndex].image,
+                    qty: foods[foodIndex].qty,
+                    size: foods[foodIndex].size,
+                    total: foods[foodIndex].total,
                     categrie: foods[foodIndex].categorie,
                     liked: foods[foodIndex].liked,
                     cartStatut: foods[foodIndex].cartStatut

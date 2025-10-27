@@ -39,6 +39,9 @@ function SelectedFood() {
             name: food.name,
             price: food.price,
             image: food.image,
+            qty: food.qty,
+            size: food.size,
+            total: food.total,
             categorie: food.categorie,
             liked: food.liked || false,
             cartStatut: true
