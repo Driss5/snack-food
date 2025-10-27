@@ -52,7 +52,18 @@ function SelectedFood() {
         setFavoritesH(favorites);
         localStorage.setItem('foodFavorite', JSON.stringify(favorites));
     }
-  }
+  }    
+
+    function isFoodInCart(food) {
+        const Commandes = JSON.parse(localStorage.getItem('foodFavorite')) || [];
+
+        if (!Array.isArray(Commandes) || Commandes.length === 0 || !food) {
+            return false;
+        }
+
+        return Commandes.some(f => f && f.foodIndex === food.id && f.cartStatut === true);
+    }
+// console.log(isFoodInCart(food));
 
   return (
     <div className="bg-0">
@@ -85,7 +96,7 @@ function SelectedFood() {
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tristique hendrerit aliquam ullamcorper laoreet gravida suspendisse libero turpis consectetur. Amet mi, neque elit</p>
             </div>
             <div className="detaolle-food-btn">
-                <button onClick={() => {handleAddToCart(food.id)}}>Add To Cart - { food.price } DH</button>
+                <button onClick={() => {handleAddToCart(food.id)}}> {isFoodInCart(food) ? 'Added' : 'Add To Cart'}  - { food.price } DH</button>
             </div>
         </div>
         <div className="bg-2"></div>
