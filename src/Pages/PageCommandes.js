@@ -18,7 +18,7 @@ function PageCommandes() {
     }, []);
 
     const options = [
-        'Clear All ❌',
+        'Clear All',
     ];
 
     let Commandes = JSON.parse(localStorage.getItem('foodFavorite')) || [];
@@ -122,7 +122,7 @@ function PageCommandes() {
         };
         const handleClose = (option) => {
             setAnchorEl(null);
-            if (option === 'Clear All ') {
+            if (option === 'Clear All') {
                 let clearedCommandes = Commandes.map(food => ({
                     ...food,
                     cartStatut: false
