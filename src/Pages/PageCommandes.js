@@ -122,7 +122,7 @@ function PageCommandes() {
         };
         const handleClose = (option) => {
             setAnchorEl(null);
-            if (option === 'Clear All ❌') {
+            if (option === 'Clear All ') {
                 let clearedCommandes = Commandes.map(food => ({
                     ...food,
                     cartStatut: false
@@ -167,6 +167,7 @@ function PageCommandes() {
             total: food.price
         }));
         localStorage.setItem('foodFavorite', JSON.stringify(clearedCommandes));
+        setTotalOrder(0);
         setOpenD(false);
     }
 
