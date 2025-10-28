@@ -23,8 +23,15 @@ function PageCommandes() {
         window.location.reload();
     }
 
+    let initTotalProduit = {};
+    orderedFoods.forEach(food => {
+        initTotalProduit[food.foodIndex] = food.price;
+    });
+    const totalFinal = Object.values(initTotalProduit).reduce((sum, price) => sum + price, 0);
+
     let [quantite, setQuantite] = useState({});
     let [totalProduit, setTotalProduit] = useState({});
+    let [totalOrder, setTotalOrder] = useState(totalFinal);
 
     function handleIncrement(foodIndex) {
         const foodToUpdate = Commandes.find(food => food.foodIndex === foodIndex);
@@ -41,6 +48,7 @@ function PageCommandes() {
                     [foodIndex]: newQty
                 };
             });
+            setTotalOrder(prevTotal => prevTotal + foodToUpdate.price);
         }
     }
 
@@ -58,6 +66,9 @@ function PageCommandes() {
                     [foodIndex]: newQty
                 };
             });
+            if ((quantite[foodIndex] || 1) > 1) {
+                setTotalOrder(prevTotal => prevTotal - foodToUpdate.price);
+            }
         }
     }
 
@@ -111,13 +122,13 @@ function PageCommandes() {
                             <p>Total Discounts</p>
                         </div>
                         <div>
-                            <p>500DH</p>
-                            <p>15DH</p>
+                            <p>{totalOrder}DH</p>
+                            <p>0DH</p>
                         </div>
                     </div>
                     <div className='price-total'>
                         <p>Order Total</p>
-                        <p>485DH</p>
+                        <p>{totalOrder}DH</p>
                     </div>
                     <div className='cart-footer-btn'>
                         <button>Order Now</button>
