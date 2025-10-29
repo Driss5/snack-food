@@ -9,7 +9,8 @@ import { FoodContexte } from '../Contexte/foodsContexte';
 
 function Home() {
 
-      const [categories, setCategories] = useState([
+    // Filter (Categories)
+    const [categories, setCategories] = useState([
         { id: 1, name: 'all', iconNormal: '/Images/Icones-Food/burger.png', iconActive: '/Images/Icones-Food/burger-w.png', alt: 'Burger', active: true },
         { id: 2, name: 'Pizza', iconNormal: '/Images/Icones-Food/pizza.png', iconActive: '/Images/Icones-Food/pizza-w.png', alt: 'Pizza', active: false },
         { id: 3, name: 'salad', iconNormal: '/Images/Icones-Food/frite.png', iconActive: '/Images/Icones-Food/frite-w.png', alt: 'Frites', active: false },
@@ -17,12 +18,22 @@ function Home() {
         { id: 5, name: 'drink', iconNormal: '/Images/Icones-Food/drink.png', iconActive: '/Images/Icones-Food/drink-w.png', alt: 'Drinks', active: false },
     ]);
 
+    const [showCategorie, setShowCategorie] = useState('all');
+    function handleChangeCategorie(categorie) {
+        const updatedCategories = categories.map(cat => ({
+            ...cat,
+            active: cat.name === categorie
+        }));
+        setCategories(updatedCategories);
+        setShowCategorie(categorie);
+    }
+
     const { foods } = useContext(FoodContexte);
 
+    // Favorites
     const { favoritesH, setFavoritesH } = useContext(FavoriteContexte);
 
     function handleAddFavorite(foodId) {
-        return function() {
             let foodIndex = foods.findIndex(food => food.id === foodId);
             if (foodIndex !== -1) {
                 
@@ -43,39 +54,31 @@ function Home() {
                 };
 
                 const existingIndex = favorites.findIndex(f => f.foodIndex === foodIndex + 1);
-
                 if (existingIndex !== -1) {
                     favorites[existingIndex].liked = !favorites[existingIndex].liked;
                 } else {
                     favorites.push(newItem);
                 }
+
                 setFavoritesH(favorites);
                 localStorage.setItem('foodFavorite', JSON.stringify(favorites));
-            }  
-        }
+            } else {
+                alert('kayyyn chi mochkil khoyaa ghi 3ayat l srbaille hhh');
+            }
     }
 
+    // t9ra mn localStorag wach food liked wla la
     useEffect(() => {
         const saved = JSON.parse(localStorage.getItem("foodFavorite")) || [];
         setFavoritesH(saved);
     }, [setFavoritesH]);
 
+    // Selected Food Navigation
     const navigate = useNavigate();
 
     function handleSelectedFood(id) {
         const food = foods.find((f) => {return f.id === id})
         navigate("/pageSelectedFood", { state: { food: food } });
-    }
-
-    const [showCategorie, setShowCategorie] = useState('all');
-
-    function handleChangeCategorie(categorie) {
-        const updatedCategories = categories.map(cat => ({
-            ...cat,
-            active: cat.name === categorie
-        }));
-        setCategories(updatedCategories);
-        setShowCategorie(categorie);
     }
 
     return (
@@ -103,7 +106,6 @@ function Home() {
                     <p>{ showCategorie }</p>
                 </div>
                 <div className='food-cards-container'>
-
                     {foods.map((food) => (
                         showCategorie.toLowerCase() === food.categorie.toLocaleLowerCase() || showCategorie.toLowerCase() === 'all' ? (
                             <div className='food-card' key={food.id}>
@@ -116,7 +118,7 @@ function Home() {
                                     </div>
                                     <div className='food-card-prix'>
                                         <p>{food.price} DH</p>
-                                        <img src='/Images/Icones/heart.svg' alt='Heart' onClick={handleAddFavorite(food.id)} className={favoritesH.some(fav => fav.foodIndex === food.id && fav.liked) ? 'heartActive' : ''}/>
+                                        <img src='/Images/Icones/heart.svg' alt='Heart' onClick={() => { handleAddFavorite(food.id) }} className={favoritesH.some(fav => fav.foodIndex === food.id && fav.liked) ? 'heartActive' : ''}/>
                                     </div>
                                 </div>
                             </div>

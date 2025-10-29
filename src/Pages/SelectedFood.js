@@ -16,47 +16,50 @@ function SelectedFood() {
     const { setFavoritesH } = useContext(FavoriteContexte);
     const { foods } = useContext(FoodContexte);
     
-  const location = useLocation();
-  const { food } = location.state || {};
+    const location = useLocation();
+    const { food } = location.state || {};
 
-  const navigate = useNavigate();
-  function handleReturn() {
-    return function() {
-        navigate(-1);
+    // Return To Home Page
+    const navigate = useNavigate();
+    function handleReturn() {
+        return function() {
+            navigate(-1);
+        }
     }
-  }
 
-  function handleAddToCart(foodId) {
-    let favorites = JSON.parse(localStorage.getItem('foodFavorite')) || [];
-    let foodIndex = favorites.findIndex(foo => foo.foodIndex === foodId);
+    // Add To Cart
+    function handleAddToCart(foodId) {
+        let favorites = JSON.parse(localStorage.getItem('foodFavorite')) || [];
+        let foodIndex = favorites.findIndex(foo => foo.foodIndex === foodId);
 
-    if (!favorites[foodIndex]) {
-        const food = foods.find(f => f.id === foodId);
-        if (!food) return console.log('Food not found!');
+        if (!favorites[foodIndex]) {
+            // hna rah jbdnaha mn contexte
+            const food = foods.find(f => f.id === foodId);
 
-        const newItem = {
-            foodIndex: food.id,
-            name: food.name,
-            price: food.price,
-            image: food.image,
-            qty: food.qty,
-            size: food.size,
-            total: food.total,
-            categorie: food.categorie,
-            liked: food.liked || false,
-            cartStatut: true
-        };
+            const newItem = {
+                foodIndex: food.id,
+                name: food.name,
+                price: food.price,
+                image: food.image,
+                qty: food.qty,
+                size: food.size,
+                total: food.total,
+                categorie: food.categorie,
+                liked: food.liked || false,
+                cartStatut: true
+            };
 
-        favorites.push(newItem);
-        setFavoritesH(favorites);
-        localStorage.setItem('foodFavorite', JSON.stringify(favorites));
-    } else {
-        favorites[foodIndex].cartStatut = true;
-        setFavoritesH(favorites);
-        localStorage.setItem('foodFavorite', JSON.stringify(favorites));
-    }
-  }    
+            favorites.push(newItem);
+            setFavoritesH(favorites);
+            localStorage.setItem('foodFavorite', JSON.stringify(favorites));
+        } else {
+            favorites[foodIndex].cartStatut = true;
+            setFavoritesH(favorites);
+            localStorage.setItem('foodFavorite', JSON.stringify(favorites));
+        }
+    }    
 
+    // check wach kayna f cart
     function isFoodInCart(food) {
         const Commandes = JSON.parse(localStorage.getItem('foodFavorite')) || [];
 
@@ -66,7 +69,6 @@ function SelectedFood() {
 
         return Commandes.some(f => f && f.foodIndex === food.id && f.cartStatut === true);
     }
-// console.log(isFoodInCart(food));
 
   return (
     <div className="bg-0">
