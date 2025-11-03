@@ -2,7 +2,7 @@ import '../css/favorite.css';
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 
-// Material UII
+// Material UI
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
